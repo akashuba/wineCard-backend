@@ -1,0 +1,15 @@
+#configs
+.vscode/
+
+# generated files and static
+
+# node modules
+/node_modules
+
+# WebStorm
+.idea/
+
+# we use yarn.lock
+**/package-lock.json
+
+
