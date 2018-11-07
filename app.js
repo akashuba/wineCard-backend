@@ -7,7 +7,11 @@ var jsonParser = bodyParser.json();
 
 app.use(express.static(__dirname + "/public"));
 
-// app.get("/", function(request,response) {
-//     response.send();
-// })
+app.get("/api/wines", function(req, res) {
+  fs.readFile("./public/winecardsJSON.json", "utf8", function(err, data) {
+    if (err) throw err;
+    res.send(data);
+  });
+});
+
 app.listen(3000);

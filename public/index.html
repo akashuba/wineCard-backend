@@ -9,7 +9,31 @@
 </head>
 
 <body>
-  wine-card hello
+  <h1>
+    wine-card
+  </h1>
+  <div id="content">
+
+  </div>
 </body>
+
+<script>
+  var content = document.querySelector('#content');
+
+  function getWines() {
+    fetch("/api/wines", {
+      method: "GET",
+      contentType: "application/json",
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      console.log(data)
+    })
+
+  }
+
+  getWines();
+
+</script>
 
 </html>
