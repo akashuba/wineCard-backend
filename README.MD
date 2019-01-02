@@ -1,4 +1,4 @@
 ## Start developing node.js back-end for wine-cards 
-https://github.com/SimpleaRu/Wine-card-React
+https://github.com/akashuba/Wine-card-React - frontend
 
 To start - npm start
