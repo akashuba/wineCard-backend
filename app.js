@@ -7,8 +7,8 @@ var jsonParser = bodyParser.json();
 
 app.use(express.static(__dirname + "/public"));
 
-app.get("/api/wines", function(req, res) {
-  fs.readFile("./public/winecardsJSON.json", "utf8", function(err, data) {
+app.get("/api/wines", function (req, res) {
+  fs.readFile("./public/winecardsJSON.json", "utf8", function (err, data) {
     if (err) throw err;
     res.send(data);
   });
