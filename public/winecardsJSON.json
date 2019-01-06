@@ -5,7 +5,7 @@
         "colorType": "red",
         "rating": "7",
         "sparkling": null,
-        "imgUrl": "img\/cabernet_saperavi.jpg",
+        "imgUrl": "http://localhost:3004/img/cabernet_saperavi.jpg",
         "colorText": "Пурпурный",
         "aromeText": "Ноты чёрной смородины",
         "tasteText": "Сбалансированный, немного танинный",
@@ -16,7 +16,7 @@
     },
     {
         "name": "Primitivo Di Manduria",
-        "imgUrl": "img\/Primitivo_di_Manduria.jpg",
+        "imgUrl": "http://localhost:3004/img/Primitivo_di_Manduria.jpg",
         "colorType": "red",
         "sugarContent": "Сухое",
         "rating": "9",
@@ -31,7 +31,7 @@
     },
     {
         "name": "Martini Asti",
-        "imgUrl": "img\/5851martini_asti.jpg",
+        "imgUrl": "http://localhost:3004/img/5851martini_asti.jpg",
         "colorType": "white",
         "sugarContent": "Сладкое",
         "rating": "9",
@@ -46,7 +46,7 @@
     },
     {
         "name": "Бастардо",
-        "imgUrl": "img\/9499Бастардо.jpg",
+        "imgUrl": "http://localhost:3004/img/9499Бастардо.jpg",
         "colorType": "red",
         "sugarContent": "Десертное сладкое",
         "rating": "8",
@@ -61,7 +61,7 @@
     },
     {
         "name": "Toso",
-        "imgUrl": "img\/366toso.jpg",
+        "imgUrl": "http://localhost:3004/img/366toso.jpg",
         "colorType": "red",
         "sugarContent": "Сухое",
         "rating": "6",
@@ -76,7 +76,7 @@
     },
     {
         "name": "Псоу",
-        "imgUrl": "img\/8468PSOU_2.jpg",
+        "imgUrl": "http://localhost:3004/img/8468PSOU_2.jpg",
         "colorType": "white",
         "sugarContent": "Полусладкое",
         "rating": "6",
@@ -91,7 +91,7 @@
     },
     {
         "name": "Лыхны",
-        "imgUrl": "img\/7093лыхны.jpg",
+        "imgUrl": "http://localhost:3004/img//7093лыхны.jpg",
         "colorType": "red",
         "sugarContent": "Полусладкое",
         "rating": "7",
