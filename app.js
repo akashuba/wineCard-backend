@@ -17,13 +17,22 @@ app.get("/api/wines", function (req, res) {
   fs.readFile("./public/winecardsJSON.json", "utf8", function (err, data) {
     if (err) throw err;
     res.send(data);
-  });
+  })
 });
 
 app.post("/api/wines/upload", upload.array(), function (req, res) {
   res.set('Access-Control-Allow-Origin', 'http://localhost:3000')
-  console.log(req.body)
+
   res.send('Get your form data!')
+  fs.readFile("./public/winecardsJSON.json", "utf8", function (err, data) {
+    if (err) { console.log(err) }
+    const newData = JSON.parse(data)
+    newData.push(req.body)
+    fs.writeFile("./public/winecardsJSON.json", JSON.stringify(newData), err => {
+      if (err) { console.log(err) }
+
+    })
+  })
 });
 
 app.listen(3004);
