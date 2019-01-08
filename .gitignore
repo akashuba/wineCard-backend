@@ -6,9 +6,6 @@
 # node modules
 /node_modules
 
-# static files and react bundle
-/public
-
 # WebStorm
 .idea/
 
