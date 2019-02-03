@@ -1,13 +1,9 @@
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/wines');
+var fs = require("fs");
 
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-    console.log('We are connected');
-});
 
-var wineCardSchema = new mongoose.Schema({
+var wineCardSchema = new mongoose.Schema([{
     name: String,
     sugarContent: String,
     colorType: String,
@@ -21,16 +17,28 @@ var wineCardSchema = new mongoose.Schema({
     priceText: String,
     noteText: String,
     contributor: String
-});
+}]);
 
 var Wines = mongoose.model('Wines', wineCardSchema);
 
-var cabernet_saperavi = new Wines({
-    name: 'Cabernet Saperavi',
-    imgUrl: 'http://localhost:3004/img/cabernet_saperavi.jpg'
-});
-console.log(cabernet_saperavi); // 'Silence'
+var winesBase;
 
-cabernet_saperavi.save(function (err, cabernet_saperavi) {
-    if (err) return console.error(err);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function (callback) {
+    var db = mongoose.connection.db;
+    db.dropDatabase(callback);
+
+    fs.readFile("./public/winecardsJSON.json", "utf8", function (err, data) {
+        var parseDara = JSON.parse(data);
+        if (err) return console.error(err);
+        winesBase = new Wines({
+            ...parseDara[0]
+        });
+        // console.log(JSON.parse(data))
+        winesBase.save(function (err, winesBase) {
+            if (err) return console.error(err);
+            console.log('base is saved')
+        });
+    })
 });
