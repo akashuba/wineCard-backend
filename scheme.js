@@ -3,21 +3,10 @@ mongoose.connect('mongodb://localhost/wines');
 var fs = require("fs");
 
 
-var wineCardSchema = new mongoose.Schema([{
-    name: String,
-    sugarContent: String,
-    colorType: String,
-    rating: String,
-    sparkling: Boolean,
-    imgUrl: String,
-    colorText: String,
-    aromeText: String,
-    tasteText: String,
-    originText: String,
-    priceText: String,
-    noteText: String,
-    contributor: String
-}]);
+var wineCardSchema = new mongoose.Schema(
+    {
+        wines: { type: Array, "default": [] }
+    });
 
 var Wines = mongoose.model('Wines', wineCardSchema);
 
@@ -30,10 +19,11 @@ db.once('open', function (callback) {
     db.dropDatabase(callback);
 
     fs.readFile("./public/winecardsJSON.json", "utf8", function (err, data) {
-        var parseDara = JSON.parse(data);
+        var parseData = JSON.parse(data);
         if (err) return console.error(err);
+        console.log('parseData:', parseData)
         winesBase = new Wines({
-            ...parseDara[0]
+            wines: parseData
         });
         // console.log(JSON.parse(data))
         winesBase.save(function (err, winesBase) {
