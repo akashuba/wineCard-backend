@@ -1,14 +1,13 @@
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/wines');
 var fs = require("fs");
+const Wines = require('./model').Wines
 
 
-var wineCardSchema = new mongoose.Schema(
-    {
-        wines: { type: Array, "default": [] }
-    });
-
-var Wines = mongoose.model('Wines', wineCardSchema);
+// var wineCardSchema = new mongoose.Schema(
+//     {
+//         wines: { type: Array, "default": [] }
+//     });
 
 const readFile = (path, opts = 'utf8') =>
     new Promise((resolve, reject) => {
@@ -21,9 +20,8 @@ const readFile = (path, opts = 'utf8') =>
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {
-    var db = mongoose.connection.db;
     db.dropDatabase(callback);
-
+    console.log('database is opened')
     readFile("./public/winecardsJSON.json")
         .then(data => JSON.parse(data))
         .then(data => {
@@ -33,4 +31,7 @@ db.once('open', function (callback) {
                 console.log('base is saved')
             });
         });
+
 });
+
+exports.Wines

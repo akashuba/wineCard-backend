@@ -2,6 +2,8 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var fs = require("fs");
 var multer = require('multer');
+const Wines = require('./model').Wines
+const readFile = require('./lib/readWrite').readFile
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -24,16 +26,18 @@ app.use(bodyParser.json());
 
 app.get("/api/wines", function (req, res) {
   res.set('Access-Control-Allow-Origin', 'http://localhost:3000')
-  fs.readFile("./public/winecardsJSON.json", "utf8", function (err, data) {
-    if (err) throw err;
-    res.send(data);
+  Wines.findById('5c60324788efeb20f0fac49a', function (err, data) {
+    if (err) return console.error(err);
+    console.log(data);
   })
+  readFile("./public/winecardsJSON.json")
+    .then(data => res.send(data))
+    .catch(err => { console.warn('err:', err) })
 });
 
 app.post("/api/wines/upload", upload.single('file'), function (req, res) {
   res.set('Access-Control-Allow-Origin', 'http://localhost:3000')
 
-  // console.log(req.file)
   const newCard = {
     ...req.body,
     imgUrl: 'http://localhost:3004/img/' + req.file.originalname
