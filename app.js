@@ -26,10 +26,10 @@ app.use(bodyParser.json());
 
 app.get("/api/wines", function (req, res) {
   res.set('Access-Control-Allow-Origin', 'http://localhost:3000')
-  Wines.findById('5c60324788efeb20f0fac49a', function (err, data) {
-    if (err) return console.error(err);
-    console.log(data);
-  })
+  // Wines.findById('5c60324788efeb20f0fac49a', 'wines', function (err, data) {
+  //   if (err) return console.error(err);
+  //   console.log(data);
+  // })
   readFile("./public/winecardsJSON.json")
     .then(data => res.send(data))
     .catch(err => { console.warn('err:', err) })
@@ -43,7 +43,20 @@ app.post("/api/wines/upload", upload.single('file'), function (req, res) {
     imgUrl: 'http://localhost:3004/img/' + req.file.originalname
   }
   // console.log(newCard)
+  Wines.findByIdAndUpdate('5c60324788efeb20f0fac49a',
+    { $push: { wines: newCard } },
+    { safe: true, upsert: true },
+    function (err, doc) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log('data is added:')
+      }
+    }
+
+  )
   res.send('Get your form data!')
+
   fs.readFile("./public/winecardsJSON.json", "utf8", function (err, data) {
     if (err) { console.log(err) }
     const withAddedCard = JSON.parse(data).concat(newCard)
