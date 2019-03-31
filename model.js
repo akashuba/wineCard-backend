@@ -23,6 +23,4 @@ var winesScheme = new mongoose.Schema(
         wines: [wineProps]
     });
 
-
-
 exports.Wines = mongoose.model('Wines', winesScheme);

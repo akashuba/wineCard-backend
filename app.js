@@ -10,6 +10,10 @@ var storage = multer.diskStorage({
     cb(null, './public/img')
   },
   filename: function (req, file, cb) {
+    if (!file) {
+      console.warn('file is not provided')
+      return
+    }
     cb(null, file.originalname)
   }
 })
@@ -26,21 +30,27 @@ app.use(bodyParser.json());
 
 app.get("/api/wines", function (req, res) {
   res.set('Access-Control-Allow-Origin', 'http://localhost:3000')
-  // Wines.findById('5c60324788efeb20f0fac49a', 'wines', function (err, data) {
-  //   if (err) return console.error(err);
-  //   console.log(data);
-  // })
-  readFile("./public/winecardsJSON.json")
-    .then(data => res.send(data))
-    .catch(err => { console.warn('err:', err) })
+  Wines.findOne(function (err, data) {
+    if (err) return console.error(err);
+    data.wines.forEach(function (wine) {
+      if (wine.name === 'Toso') {
+        console.log(wine);
+      }
+    })
+    res.send(data.wines)
+  })
+
+  // readFile("./public/winecardsJSON.json")
+  //   .then(data => res.send(data))
+  //   .catch(err => { console.warn('err:', err) })
 });
 
 app.post("/api/wines/upload", upload.single('file'), function (req, res) {
   res.set('Access-Control-Allow-Origin', 'http://localhost:3000')
-
+  const imgUrl = req.file ? 'http://localhost:3004/img/' + req.file.originalname : '';
   const newCard = {
     ...req.body,
-    imgUrl: 'http://localhost:3004/img/' + req.file.originalname
+    imgUrl
   }
   // console.log(newCard)
   Wines.findByIdAndUpdate('5c60324788efeb20f0fac49a',
