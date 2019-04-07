@@ -28,22 +28,31 @@ app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get("/api/wines", function (req, res) {
+app.get("/api/wines/", function (req, res, next) {
   res.set('Access-Control-Allow-Origin', 'http://localhost:3000')
   Wines.findOne(function (err, data) {
     if (err) return console.error(err);
-    data.wines.forEach(function (wine) {
-      if (wine.name === 'Toso') {
-        console.log(wine);
-      }
-    })
     res.send(data.wines)
+    next()
   })
-
+  // Without mongoDB
   // readFile("./public/winecardsJSON.json")
   //   .then(data => res.send(data))
   //   .catch(err => { console.warn('err:', err) })
 });
+app.get("/api/wines/:folder/:wine", function (req, res, next) {
+  res.set('Access-Control-Allow-Origin', 'http://localhost:3000')
+  const getWine = req.params.wine
+  Wines.findOne(function (err, data) {
+    if (err) return console.error(err);
+    data.wines.forEach(function (wine) {
+      if (wine.name === getWine) {
+        res.send([wine])
+        next()
+      }
+    })
+  })
+})
 
 app.post("/api/wines/upload", upload.single('file'), function (req, res) {
   res.set('Access-Control-Allow-Origin', 'http://localhost:3000')
