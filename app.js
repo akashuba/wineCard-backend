@@ -61,7 +61,7 @@ app.post("/api/wines/upload", upload.single('file'), function (req, res) {
     ...req.body,
     imgUrl
   }
-  // console.log(newCard)
+
   Wines.findByIdAndUpdate('5c60324788efeb20f0fac49a',
     { $push: { wines: newCard } },
     { safe: true, upsert: true },
