@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.get('/api/wines/', function(req, res, next) {
-    res.set('Access-Control-Allow-Origin', 'http://localhost:3000')
+    res.set('Access-Control-Allow-Origin', '*')
     Wines.findOne(function(err, data) {
         if (err) return console.error(err)
         // console.log(data.wines)
@@ -42,7 +42,7 @@ app.get('/api/wines/', function(req, res, next) {
     //   .catch(err => { console.warn('err:', err) })
 })
 app.get('/api/wines/:folder/:wine', function(req, res, next) {
-    res.set('Access-Control-Allow-Origin', 'http://localhost:3000')
+    res.set('Access-Control-Allow-Origin', '*')
     const getWine = req.params.wine
     Wines.findOne(function(err, data) {
         if (err) return console.error(err)
@@ -56,7 +56,7 @@ app.get('/api/wines/:folder/:wine', function(req, res, next) {
 })
 
 app.post('/api/wines/upload', upload.single('file'), function(req, res) {
-    res.set('Access-Control-Allow-Origin', 'http://localhost:3000')
+    res.set('Access-Control-Allow-Origin', '*')
     const imgUrl = req.file ? 'http://localhost:3004/img/' + req.file.originalname : ''
     const newCard = {
         ...req.body,
