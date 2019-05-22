@@ -1,4 +1,7 @@
 ## Start developing node.js back-end for wine-cards 
+
+#### Stack: NodeJS, Express, mongodb, mongoose.
+
 https://github.com/akashuba/Wine-card-React - frontend
 
 It's need to mongodb installed and running.
