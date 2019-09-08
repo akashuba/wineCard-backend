@@ -2,36 +2,36 @@ var express = require("express")
 var bodyParser = require("body-parser")
 var fs = require("fs")
 var multer = require("multer")
+var cors = require('cors');
 
 var storage = multer.diskStorage({
-  destination: function(req, file, cb) {
+  destination: function (req, file, cb) {
     cb(null, "./public/img")
   },
-  filename: function(req, file, cb) {
+  filename: function (req, file, cb) {
     cb(null, file.originalname)
   }
 })
 
 var upload = multer({ storage: storage })
-// var cors = require('cors');
 
 var app = express()
 // var jsonParser = bodyParser.json();
-// app.use(cors());
+app.use(cors());
 app.use(express.static(__dirname + "/public"))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-app.get("/api/wines", function(req, res) {
-  res.set("Access-Control-Allow-Origin", "http://192.168.1.52:3000/")
-  fs.readFile("./public/winecardsJSON.json", "utf8", function(err, data) {
+app.get("/api/wines", function (req, res) {
+  // res.set("Access-Control-Allow-Origin", "http://192.168.1.52:3000")
+  fs.readFile("./public/winecardsJSON.json", "utf8", function (err, data) {
     if (err) throw err
     res.send(data)
   })
 })
 
-app.post("/api/wines/upload", upload.single("file"), function(req, res) {
-  res.set("Access-Control-Allow-Origin", "http://192.168.1.52:3000/")
+app.post("/api/wines/upload", upload.single("file"), function (req, res) {
+  // res.set("Access-Control-Allow-Origin", "http://192.168.1.52:3000")
 
   // console.log(req.file)
   const newCard = {
@@ -40,7 +40,7 @@ app.post("/api/wines/upload", upload.single("file"), function(req, res) {
   }
   // console.log(newCard)
   res.send("Get your form data!")
-  fs.readFile("./public/winecardsJSON.json", "utf8", function(err, data) {
+  fs.readFile("./public/winecardsJSON.json", "utf8", function (err, data) {
     if (err) {
       console.log(err)
     }
@@ -57,4 +57,10 @@ app.post("/api/wines/upload", upload.single("file"), function(req, res) {
   })
 })
 
-app.listen(3004)
+// app.listen(3004);
+
+var server = require('http').createServer(app);
+
+server.listen(3004, '192.168.1.52', function () {
+  console.log("Listening on port 3004!");
+});
