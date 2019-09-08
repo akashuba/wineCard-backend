@@ -36,7 +36,7 @@ app.post("/api/wines/upload", upload.single("file"), function (req, res) {
   // console.log(req.file)
   const newCard = {
     ...req.body,
-    imgUrl: "http://localhost:3004/img/" + req.file.originalname
+    imgUrl: "http://77.37.232.187:8081/img/" + req.file.originalname
   }
   // console.log(newCard)
   res.send("Get your form data!")
